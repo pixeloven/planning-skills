@@ -89,13 +89,16 @@ No skill fills a Crew slot (`provides:`).
 
 ## Install
 
-The marketplace entry is pending; until it merges there is no plugin install line.
 Install Crew first and follow its quickstarts — this pack adds skills, not setup.
 
-| Harness | How today |
+Enable the pack per project, in the projects where product planning happens, not
+for every session: a planning pack has no place in an infrastructure repo, and
+every enabled skill adds to the always-on skill listing.
+
+| Harness | How |
 |---|---|
-| pi.dev | git package `git:github.com/pixeloven/planning-skills@vX.Y.Z`, added beside Crew in `packages` (pi.dev has no marketplace) |
-| Claude Code | load a local checkout with `claude --plugin-dir /absolute/path/to/planning-skills`, or vendor `skills/` into the project |
+| Claude Code | from the project root, beside `crew@pixeloven`: `claude plugin install planning-skills@pixeloven --scope project` (writes `enabledPlugins` in the project's `.claude/settings.json`; commit it). User scope (`--scope user`) enables it in every project — use it only if you plan in most of them. For a local checkout: `claude --plugin-dir /absolute/path/to/planning-skills` |
+| pi.dev | git package `git:github.com/pixeloven/planning-skills@vX.Y.Z`, added beside Crew in the project's `packages` (pi.dev has no marketplace) |
 | OpenAI Codex | vendor `skills/` into `.agents/skills/` |
 
 As with Crew, Claude Code and Codex namespace plugin skills
