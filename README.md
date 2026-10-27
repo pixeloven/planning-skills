@@ -89,19 +89,35 @@ No skill fills a Crew slot (`provides:`).
 
 ## Install
 
-Install Crew first and follow its quickstarts — this pack adds skills, not setup.
-
-Enable the pack per project, in the projects where product planning happens, not
-for every session: a planning pack has no place in an infrastructure repo, and
-every enabled skill adds to the always-on skill listing.
-
 | Harness | How |
 |---|---|
-| Claude Code | from the project root, beside `crew@pixeloven`: `claude plugin install planning-skills@pixeloven --scope project` (writes `enabledPlugins` in the project's `.claude/settings.json`; commit it). User scope (`--scope user`) enables it in every project — use it only if you plan in most of them. For a local checkout: `claude --plugin-dir /absolute/path/to/planning-skills` |
+| Claude Code | plugin `planning-skills@pixeloven`, beside `crew@pixeloven`; for a local checkout: `claude --plugin-dir /absolute/path/to/planning-skills` |
 | pi.dev | git package `git:github.com/pixeloven/planning-skills@vX.Y.Z`, added beside Crew in the project's `packages` (pi.dev has no marketplace) |
 | OpenAI Codex | vendor `skills/` into `.agents/skills/` |
 
-As with Crew, Claude Code and Codex namespace plugin skills
+Install the pack at user scope, beside Crew, so it is available machine-wide
+in every session. Install Crew (`crew@pixeloven`) first, then:
+
+```sh
+claude plugin install planning-skills@pixeloven --scope user
+```
+
+User scope is the CLI default and writes
+`"enabledPlugins": { "planning-skills@pixeloven": true }` to
+`~/.claude/settings.json`. Each enabled pack adds its descriptions to the
+always-on skill listing, and Claude Code collapses an over-budget listing to
+names only, which hurts skill selection; the description cost below is the
+price of keeping the pack on everywhere.
+
+To enable the pack only in the projects where product planning happens instead,
+run `claude plugin install planning-skills@pixeloven --scope project` from the
+project root. This writes the same entry to the project's
+`.claude/settings.json`, which you can also edit by hand and commit so the whole
+team gets it. `--scope local` does the same in `.claude/settings.local.json` for
+you alone.
+
+Follow Crew's quickstarts; this pack adds skills, not setup. As with Crew,
+Claude Code and Codex namespace plugin skills
 (`planning-skills:<name>`) while project skills stay bare, so a same-named local
 skill does not shadow the pack copy. Do not rely on collision behaviour to disable
 a pack skill.
